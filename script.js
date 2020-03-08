@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let getMarbles = (type, n) => {
     let circles = [];
     let x = 240;
-    let fill = '#111';
+    let fill = '#866';
     if (type == 'white') {
       fill = '#eee';
       x = 150
