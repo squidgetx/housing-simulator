@@ -254,6 +254,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  let getMarbles = (type, n) => {
+    let circles = [];
+    let x = 240;
+    let fill = '#111';
+    if (type == 'white') {
+      fill = '#eee';
+      x = 150
+    }
+    for(let i = 0; i < n; i++) {
+      circles.push(
+        Bodies.circle(
+          Math.random() * 50 + x,
+          Math.random() * 80,
+          marbleRadius,
+          {
+            restitution: 0,
+            friction: 0.05,
+            density: 0.01,
+            render: {
+              fillStyle: fill,
+            }
+          }
+        )
+      )
+    }
+    return circles;
+  }
+
   // module aliases
   var Engine = Matter.Engine,
       Render = Matter.Render,
@@ -275,45 +303,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // create two boxes and a ground
-  var circles = [];
-  for(let i = 0; i < 50; i++) {
-    circles.push(
-      Bodies.circle(
-        Math.random() * 50 + 150,
-        Math.random() * 80,
-        marbleRadius,
-        {restitution: 0, friction: 0.05, density: 0.01}
-      )
-    )
-  }
-  for(let i = 0; i < 50; i++) {
-    circles.push(
-      Bodies.circle(
-        Math.random() * 50 + 240,
-        Math.random() * 80,
-        marbleRadius,
-        {
-          restitution: 0,
-          friction: 0.05,
-          density: 0.01,
-          render: {
-            fillStyle: '#fff',
-          }
-        }
-      )
-    )
-  }
-  /*
-  for(let i = 0; i < 100; i++) {
-    circles.push(
-      Bodies.circle(
-        Math.random() * 50 + 300,
-        Math.random() * 100 + 50,
-        marbleRadius,
-        {restitution: 0.1}
-      )
-    )
-  }*/
+  let circles = getMarbles('black', 50);
+  circles = circles.concat(getMarbles('white', 50))
+
   let crimeBlack = createGaltonBoard(100, 100, 8, 4, 0.5, 20)
   let crimeWhite = createGaltonBoard(240, 100, 8, 4, 0.5, -20)
   let housingANoCrime = createGaltonBoard(100, 400, 8, 4, 0.5, -20)
@@ -452,34 +444,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let debugOut = document.getElementById('debugout');
   window.addEventListener('mousedown', (e) => {
     debugOut.innerHTML = `x: ${e.clientX}, y: ${e.clientY}`
-    var circles = [];
-    for(let i = 0; i < 5; i++) {
-      circles.push(
-        Bodies.circle(
-          Math.random() * 50 + 140,
-          Math.random() * 80,
-          marbleRadius,
-          {restitution: 0, friction: 0.05, density: 0.01}
-        )
-      )
-    }
-    for(let i = 0; i < 5; i++) {
-      circles.push(
-        Bodies.circle(
-          Math.random() * 50 + 240,
-          Math.random() * 80,
-          marbleRadius,
-          {
-            restitution: 0,
-            friction: 0.05,
-            density: 0.01,
-            render: {
-              fillStyle: '#fff',
-            }
-          }
-        )
-      )
-    }
+    let circles = getMarbles('black', 5);
+    circles = circles.concat(getMarbles('white', 5))
     World.add(engine.world, circles)
   })
 
