@@ -1,6 +1,7 @@
 const pegRadius = 3;
 const pathSize = 12;
 const pegSpace = 9;
+const solidFill = '#333339'
 const marbleRadius = 3.5;
 const pegSpacing = pegRadius * 2 + pegSpace;
 function scaleCanvas(canvas, context, width, height) {
@@ -66,7 +67,7 @@ function scaleCanvas(canvas, context, width, height) {
 document.addEventListener('DOMContentLoaded', () => {
 
   let createRect = (offsetX, offsetY, width, height) => {
-    let poly = Bodies.rectangle(0, 0, width, height, { isStatic: true })
+    let poly = Bodies.rectangle(0, 0, width, height, { isStatic: true, render: { fillStyle: solidFill }})
     let offset = Matter.Vector.sub(poly.bounds.min, {x: 0, y: 0})
     Matter.Body.setPosition(poly, {x: offsetX - offset.x, y: offsetY - offset.y})
     return poly;
@@ -78,7 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
       Matter.Vertices.create(
         vertices
       ),
-      {isStatic: true}
+      {
+        isStatic: true,
+        render: {
+          fillStyle: solidFill,
+        }
+      }
     )
     if (debug) {
       console.log(poly.vertices)
@@ -94,7 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
       Matter.Vertices.create(
         vertices
       ),
-      {isStatic: true}
+      {
+        isStatic: true,
+        render: {
+          fillStyle: solidFill,
+        }
+      }
     )
     let offset = Matter.Vector.sub(poly.vertices[vertex], poly.position)
     Matter.Body.setPosition(poly, {x: offsetX - offset.x, y: offsetY - offset.y})
@@ -138,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let y = i * (pegSpacing) + curY;
         galtonPegs.push(
           Bodies.circle(
-            x, y, pegRadius, { isStatic: true }
+            x, y, pegRadius, { isStatic: true , render: { fillStyle: solidFill }}
           )
         )
       }
@@ -267,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let fill = '#866';
     if (type == 'white') {
       fill = '#eee';
-      x = 240;
+      x = 250;
     }
     for(let i = 0; i < n; i++) {
       circles.push(
@@ -420,12 +431,12 @@ document.addEventListener('DOMContentLoaded', () => {
         teleporters.push({
           center: entry_i,
           exit: exit_i,
-          body: Matter.Bodies.circle(entry_i.x, entry_i.y, pathSize * 1, { isStatic: true, isSensor: true }),
+          body: Matter.Bodies.circle(entry_i.x, entry_i.y, pathSize * 1, { isStatic: true, isSensor: true, render: {visible: false}}),
         })
         teleporters.push({
           center: entry_j,
           exit: exit_j,
-          body: Matter.Bodies.circle(entry_j.x, entry_j.y, pathSize * 1, { isStatic: true, isSensor: true}),
+          body: Matter.Bodies.circle(entry_j.x, entry_j.y, pathSize * 1, { isStatic: true, isSensor: true, render: { visible: false}}),
         })
       }
     }
