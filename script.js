@@ -150,12 +150,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     curY += pegSpacing * (height);
-    let colSize = 75
+    let colSize = 40;
     let colHeight = 40;
+
     let galtonColumns = [
-      createRect(offsetX + width * pegSpacing/ 2 - colSize / 2, curY + pegSpacing, colSize, 4)
-    ];
-    Matter.Body.setAngle(galtonColumns[0], angle * Math.PI / 180)
+      createRect(offsetX + width * pegSpacing/ 2, curY + pegSpacing, 4, colSize)
+    ]
+    let pinComposite = Matter.Composite.create({
+      bodies: galtonColumns,
+    })
+    let pinCenter = {x: offsetX + width * pegSpacing / 2, y: curY + pegSpacing}
+    Matter.Composite.rotate(pinComposite, angle * Math.PI / 180, pinCenter)
 
     curY += colHeight + pegSpacing;
 
@@ -188,7 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
       split: split,
       leftExit: leftExit,
       rightExit: rightExit,
-      slider: galtonColumns[0],
+      pinComposite: pinComposite,
+      pinCenter: pinCenter,
+      pinAngle: angle,
       entry: { x: offsetX + (width * pegSpacing / 2), y: offsetY},
     }
   }
@@ -467,7 +474,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /* xtra shift */
   document.getElementById('myRange').oninput = function() {
     console.log(this.value)
-    Matter.Body.setAngle(crimeBlack.slider, this.value * Math.PI / 180)
+    Matter.Composite.rotate(crimeBlack.pinComposite, (this.value - crimeBlack.pinAngle)* Math.PI / 180, crimeBlack.pinCenter)
+    crimeBlack.pinAngle = this.value
   }
 
 })
