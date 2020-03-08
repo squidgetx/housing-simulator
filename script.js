@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
   for(let i = 0; i < 50; i++) {
     circles.push(
       Bodies.circle(
-        Math.random() * 50 + 350,
+        Math.random() * 50 + 240,
         Math.random() * 80,
         marbleRadius,
         {
@@ -314,10 +314,10 @@ document.addEventListener('DOMContentLoaded', () => {
       )
     )
   }*/
-  let crimeBlack = createGaltonBoard(100, 50, 8, 7, 0.5, 20)
-  let crimeWhite = createGaltonBoard(300, 50, 8, 7, 0.5, -20)
-  let housingANoCrime = createGaltonBoard(100, 400, 8, 7, 0.5, -20)
-  let housingACrime = createGaltonBoard(300, 400, 8, 7, 0.5, 20)
+  let crimeBlack = createGaltonBoard(100, 100, 8, 4, 0.5, 20)
+  let crimeWhite = createGaltonBoard(240, 100, 8, 4, 0.5, -20)
+  let housingANoCrime = createGaltonBoard(100, 400, 8, 4, 0.5, -20)
+  let housingACrime = createGaltonBoard(240, 400, 8, 4, 0.5, 20)
   let path1 = createPathExitVertical(crimeBlack.leftExit, housingANoCrime.entry, 30)
   let path2 = createPathExitVertical(crimeBlack.rightExit, {x: housingACrime.entry.x - 30, y: housingACrime.entry.y}, 20);
   let housingANeighborhood = createNeighborhood(100, 750)
@@ -330,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let pathWhiteCrime = createPathExitVertical(crimeWhite.rightExit, {x: housingACrime.entry.x + 30, y: housingACrime.entry.y}, 20);
 
   //let housingB = createGaltonBoard(400, 700, 8, 6, 0.8)
-  let housingB = createNeighborhood(300, 750)
+  let housingB = createNeighborhood(240, 750)
   let pathHousingNoCrimeReject = createPathExitVertical(housingANoCrime.rightExit, { x: housingB.entry.x - 40, y: housingB.entry.y}, 10);
   let pathHousingCrimeReject = createPathExitVertical(
     housingACrime.rightExit,
@@ -466,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for(let i = 0; i < 5; i++) {
       circles.push(
         Bodies.circle(
-          Math.random() * 50 + 340,
+          Math.random() * 50 + 240,
           Math.random() * 80,
           marbleRadius,
           {
