@@ -329,23 +329,23 @@ document.addEventListener('DOMContentLoaded', () => {
   let housingANoCrime = createGaltonBoard(100, 400, 8, 4, 0.5, -110)
   let housingACrime = createGaltonBoard(240, 400, 8, 4, 0.5, 110)
   let path1 = createPathExitVertical(crimeBlack.leftExit, housingANoCrime.entry, 30)
-  let path2 = createPathExitVertical(crimeBlack.rightExit, {x: housingACrime.entry.x - 30, y: housingACrime.entry.y}, 20);
+  let path2 = createPathExitVertical(crimeBlack.rightExit, {x: housingACrime.entry.x - 30, y: housingACrime.entry.y}, 30);
   let housingANeighborhood = createNeighborhood(100, 700)
   let pathANoCrime = createPathExitVertical(
     housingANoCrime.leftExit,
-    { x: housingANeighborhood.entry.x - 30, y: housingANeighborhood.entry.y}, 40)
-  let pathACrime = createPathExitVertical(housingACrime.leftExit, {x: housingANeighborhood.entry.x + 20, y: housingANeighborhood.entry.y }, 20)
+    { x: housingANeighborhood.entry.x - 30, y: housingANeighborhood.entry.y}, 30)
+  let pathACrime = createPathExitVertical(housingACrime.leftExit, {x: housingANeighborhood.entry.x + 20, y: housingANeighborhood.entry.y }, 30)
 
-  let pathWhiteNoCrime = createPathExitVertical(crimeWhite.leftExit, {x: housingANoCrime.entry.x + 30, y: housingANoCrime.entry.y}, 20);
-  let pathWhiteCrime = createPathExitVertical(crimeWhite.rightExit, {x: housingACrime.entry.x + 30, y: housingACrime.entry.y}, 20);
+  let pathWhiteNoCrime = createPathExitVertical(crimeWhite.leftExit, {x: housingANoCrime.entry.x + 30, y: housingANoCrime.entry.y}, 30);
+  let pathWhiteCrime = createPathExitVertical(crimeWhite.rightExit, {x: housingACrime.entry.x + 30, y: housingACrime.entry.y}, 30);
 
   //let housingB = createGaltonBoard(400, 700, 8, 6, 0.8)
   let housingB = createNeighborhood(240, 700)
-  let pathHousingNoCrimeReject = createPathExitVertical(housingANoCrime.rightExit, { x: housingB.entry.x - 40, y: housingB.entry.y}, 10);
+  let pathHousingNoCrimeReject = createPathExitVertical(housingANoCrime.rightExit, { x: housingB.entry.x - 40, y: housingB.entry.y}, 30);
   let pathHousingCrimeReject = createPathExitVertical(
     housingACrime.rightExit,
     housingB.entry,
-    10,
+    30,
   )
 
   let allBodies = (circles)
