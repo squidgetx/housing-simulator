@@ -418,16 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
           entry_j = points_j[1];
           exit_j = points_j[0];
         }
-        /*
-        teleporters.push({
-          center: intersect,
-          entry_i: entry_i,
-          exit_i: exit_i,
-          entry_j: entry_j,
-          exit_j: exit_j,
-          body: Matter.Bodies.circle(intersect.x, intersect.y, pathSize * 1.3, { isStatic: true}),
-        })
-        */
+
         teleporters.push({
           center: entry_i,
           exit: exit_i,
@@ -459,7 +450,6 @@ document.addEventListener('DOMContentLoaded', () => {
   Render.run(render);
 
   // mouse debug X/Y
-  let debugOut = document.getElementById('debugout');
   window.addEventListener('mousedown', (e) => {
     debugOut.innerHTML = `x: ${e.clientX}, y: ${e.clientY}`
     let circles = getMarbles('black', 5);
@@ -468,8 +458,6 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   Matter.Events.on(engine, 'collisionStart', function(event) {
-  	// We know there was a collision so fetch involved elements ...
-    //console.log(event.pairs[0])
     for (pair of event.pairs) {
       if (pair.bodyB.id in teleporterMap) {
         console.log('teleport')
@@ -479,10 +467,9 @@ document.addEventListener('DOMContentLoaded', () => {
         Matter.Body.setPosition(pair.bodyB, teleporterMap[pair.bodyA.id].exit)
       }
     }
-  	// Now do something with the event and elements ... your task ;-)
   });
 
-  /* xtra shift */
+  /* slider demo */
   document.getElementById('myRange').oninput = function() {
     console.log(this.value)
     Matter.Composite.rotate(crimeBlack.pinComposite, (this.value - crimeBlack.pinAngle)* Math.PI / 180, crimeBlack.pinCenter)
