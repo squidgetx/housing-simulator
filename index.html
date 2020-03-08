@@ -9,10 +9,11 @@
     #canvas2 {
       position: absolute;
       top: 50px;
-      left: 500px;
+      left: 550px;
       color: #eee;
       width: 500px;
-      font-family: Helvetica, 'sans-serif'
+      font-family: Helvetica, 'sans-serif';
+      font-size: 10pt;
     }
   </style>
 </head>
@@ -23,9 +24,13 @@
   <div id='canvas2'>
   <p>
     Contact with the criminal justice system varies dramatically between racial groups. Under NYC's Stop + Frisk policy, blacks were stopped by police over 8x as much as whites despite being no more likely to be arrested.
-
+    Use the slider below to adjust the rate of police stops for racial minorities and see what effect it has on the system.
   </p>
-
+    <div class="slidecontainer">
+      <input type="range" min="-45" max="45" value="50" class="slider" id="myRange">
+    </div>
+  <br />
+  <br />
   <br />
   <br />
   <br />
@@ -41,6 +46,9 @@
   <br />
   <br />
   <br />
+  <br />
+  <br />
+  <br />
   <p>
     Many municipalities in the midwestern US are beginning to create crime free housing ordinances that require private landlords to exclude tenants that aren't considered "crime free".
     In many areas this means that those with traffic infractions or even a history simple interactions that did not result in arrests or convictions are denied access to housing in certain communities.
@@ -50,14 +58,51 @@
   <br />
   <br />
   <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
   <p>
     The combination of these laws and bias in policing leads to communities that become racially segregated despite the fact that the "crime free housing ordinance" itself is race-neutral.
   </p>
 
+  <br />
+  <br />
+  <div style='position:absolute; left: 550px; top: 50px; width: 500px;'>
+    <p>
+    This page is a simulation/working sketch of a physical kinetic sculpture / educational exhibit whose primary goal is to
+    bring 1. awareness of the link between racial bias in policing and segregative housing outcomes facilitated by crime free housing ordinances
+    and 2. empathy for those embroiled within the system.
+    </p><p>
+    The sculpture would contain physical marbles, pegs, and track more or less laid out as the digital version to the left. The sculpture
+    would be embedded within a ~6ft tall transparent case, with small tombstone cards containing text contextualizing each component.
+    Each tombstone component would also host a small dial or slider that allows a viewer to adjust the probabilty of the corresponding system component.
+    </p>
+
+    <p>The copy currently is a rough draft of what you would find on the front side. On the back side you would find copy
+    detailing personal anecdotes from those affected by the system, with each anecdote located near the kinetic component that best reflects the story - eg a quote from a person unfairly stopped near the crime section up top, a quote from someone describing the effects of segregation near the section with the neighborhood collection, etc.
+    </p>
+
+    Potential additional features:
+    <ul>
+    <li>multiple neighborhoods with varying levels of crime-free enforcement</li>
+    <li>additional module reflecting the fact that some tenants with a record may not even try to apply to a neighborhood with crime free housing laws</li>
+    <li>reset functionality</li>
+    <li>multiple components for each type of contact with the system</li>
+    <li>module illustrating eviction</li>
+    </ul>
+    Open Questions:
+    <ul>
+      <li>Should we base the # of colored vs white balls on a particular place?</li>
+      <li>How can we improve aesthetics while retaining the core functionality?</li>
+      <li>
+      </ul>
+
+    </p>
+    </div>
 
   </div>
-  <p>
-    This page is a simulation/working sketch of a physical kinetic sculpture / educational exhibit
 
 
 </body>

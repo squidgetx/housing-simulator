@@ -1,7 +1,7 @@
 const pegRadius = 3;
 const pathSize = 12;
 const pegSpace = 9;
-const marbleRadius = 3;
+const marbleRadius = 2.8;
 const pegSpacing = pegRadius * 2 + pegSpace;
 function scaleCanvas(canvas, context, width, height) {
   // assume the device pixel ratio is 1 if the browser doesn't specify it
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
   }
 
-  let createGaltonBoard = (offsetX, offsetY, width, height, split=0.5) => {
+  let createGaltonBoard = (offsetX, offsetY, width, height, split=0.5, angle=10) => {
     const funnelHeight = 30
     const funnelSideHeight = 10
     let galtonFunnel = createFunnel(offsetX - pegSpacing, offsetY, pegSpacing * width + pegSpacing * 2, pathSize, funnelHeight, funnelSideHeight);
@@ -149,22 +149,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    let galtonColumns = [];
-    offset = (width + 1)% 2;
-    // default resolution is just same as width
     curY += pegSpacing * (height);
-    for(let i = 0; i < width; i++) {
-        let x = i * (pegSpacing) + offset * pegSpacing / 2 + offsetX;
-        galtonColumns.push(
-          Bodies.rectangle(
-            x, curY + (pegRadius * 4), pegRadius, pegRadius * 10,
-            { isStatic: true }
-          )
-        )
+    let colSize = 69
+    let colHeight = 40;
+    let galtonColumns = [
+      createRect(offsetX + width * pegSpacing/ 2 - colSize / 2, curY + pegSpacing, colSize, 4)
+    ];
+    Matter.Body.setAngle(galtonColumns[0], angle * Math.PI / 180)
 
-    }
-
-    curY += pegRadius * 10
+    curY += colHeight + pegSpacing;
 
     let totalSize = pegSpacing * 2 + width * pegSpacing;
     let leftSize = split * totalSize;
@@ -195,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
       split: split,
       leftExit: leftExit,
       rightExit: rightExit,
+      slider: galtonColumns[0],
       entry: { x: offsetX + (width * pegSpacing / 2), y: offsetY},
     }
   }
@@ -320,25 +314,24 @@ document.addEventListener('DOMContentLoaded', () => {
       )
     )
   }*/
-  let crimeBlack = createGaltonBoard(100, 50, 8, 7, 0.3)
-  let crimeWhite = createGaltonBoard(300, 50, 8, 7, 0.7)
-  let housingANoCrime = createGaltonBoard(100, 400, 8, 7, 0.8)
-  let housingACrime = createGaltonBoard(300, 400, 8, 7, 0.2)
+  let crimeBlack = createGaltonBoard(100, 50, 8, 7, 0.5, 30)
+  let crimeWhite = createGaltonBoard(300, 50, 8, 7, 0.5, -30)
+  let housingANoCrime = createGaltonBoard(100, 400, 8, 7, 0.5, -30)
+  let housingACrime = createGaltonBoard(300, 400, 8, 7, 0.5, 30)
   let path1 = createPathExitVertical(crimeBlack.leftExit, housingANoCrime.entry, 30)
   let path2 = createPathExitVertical(crimeBlack.rightExit, {x: housingACrime.entry.x - 30, y: housingACrime.entry.y}, 20);
-  let housingANeighborhood = createNeighborhood(140, 700)
+  let housingANeighborhood = createNeighborhood(100, 750)
   let pathANoCrime = createPathExitVertical(
     housingANoCrime.leftExit,
     { x: housingANeighborhood.entry.x - 30, y: housingANeighborhood.entry.y}, 40)
-  let pathACrime = createPathExitVertical(housingACrime.leftExit, housingANeighborhood.entry, 40)
+  let pathACrime = createPathExitVertical(housingACrime.leftExit, {x: housingANeighborhood.entry.x + 20, y: housingANeighborhood.entry.y }, 20)
 
   let pathWhiteNoCrime = createPathExitVertical(crimeWhite.leftExit, {x: housingANoCrime.entry.x + 30, y: housingANoCrime.entry.y}, 20);
   let pathWhiteCrime = createPathExitVertical(crimeWhite.rightExit, {x: housingACrime.entry.x + 30, y: housingACrime.entry.y}, 20);
 
-
   //let housingB = createGaltonBoard(400, 700, 8, 6, 0.8)
-  let housingB = createNeighborhood(380, 750)
-  let pathHousingNoCrimeReject = createPathExitVertical(housingANoCrime.rightExit, { x: housingB.entry.x -60, y: housingB.entry.y}, 10);
+  let housingB = createNeighborhood(300, 750)
+  let pathHousingNoCrimeReject = createPathExitVertical(housingANoCrime.rightExit, { x: housingB.entry.x - 40, y: housingB.entry.y}, 10);
   let pathHousingCrimeReject = createPathExitVertical(
     housingACrime.rightExit,
     housingB.entry,
@@ -457,10 +450,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // mouse debug X/Y
   let debugOut = document.getElementById('debugout');
-  window.addEventListener('mousemove', (e) => {
+  window.addEventListener('mousedown', (e) => {
     debugOut.innerHTML = `x: ${e.clientX}, y: ${e.clientY}`
     var circles = [];
-    for(let i = 0; i < 1; i++) {
+    for(let i = 0; i < 5; i++) {
       circles.push(
         Bodies.circle(
           Math.random() * 50 + 140,
@@ -470,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
         )
       )
     }
-    for(let i = 0; i < 1; i++) {
+    for(let i = 0; i < 5; i++) {
       circles.push(
         Bodies.circle(
           Math.random() * 50 + 340,
@@ -506,6 +499,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* xtra shift */
-
+  document.getElementById('myRange').oninput = function() {
+    console.log(this.value)
+    Matter.Body.setAngle(crimeBlack.slider, this.value * Math.PI / 180)
+  }
 
 })
