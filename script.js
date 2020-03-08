@@ -1,7 +1,7 @@
 const pegRadius = 3;
 const pathSize = 12;
 const pegSpace = 9;
-const marbleRadius = 3;
+const marbleRadius = 3.5;
 const pegSpacing = pegRadius * 2 + pegSpace;
 function scaleCanvas(canvas, context, width, height) {
   // assume the device pixel ratio is 1 if the browser doesn't specify it
@@ -263,11 +263,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let getMarbles = (type, n) => {
     let circles = [];
-    let x = 240;
+    let x = 150
     let fill = '#866';
     if (type == 'white') {
       fill = '#eee';
-      x = 150
+      x = 240;
     }
     for(let i = 0; i < n; i++) {
       circles.push(
@@ -313,10 +313,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let circles = getMarbles('black', 50);
   circles = circles.concat(getMarbles('white', 50))
 
-  let crimeBlack = createGaltonBoard(100, 100, 8, 4, 0.5, 20)
-  let crimeWhite = createGaltonBoard(240, 100, 8, 4, 0.5, -20)
-  let housingANoCrime = createGaltonBoard(100, 400, 8, 4, 0.5, -20)
-  let housingACrime = createGaltonBoard(240, 400, 8, 4, 0.5, 20)
+  let crimeBlack = createGaltonBoard(100, 100, 8, 4, 0.5, 110)
+  let crimeWhite = createGaltonBoard(240, 100, 8, 4, 0.5, -110)
+  let housingANoCrime = createGaltonBoard(100, 400, 8, 4, 0.5, -110)
+  let housingACrime = createGaltonBoard(240, 400, 8, 4, 0.5, 110)
   let path1 = createPathExitVertical(crimeBlack.leftExit, housingANoCrime.entry, 30)
   let path2 = createPathExitVertical(crimeBlack.rightExit, {x: housingACrime.entry.x - 30, y: housingACrime.entry.y}, 20);
   let housingANeighborhood = createNeighborhood(100, 750)
