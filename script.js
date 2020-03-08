@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     curY += pegSpacing * (height);
-    let colSize = 69
+    let colSize = 75
     let colHeight = 40;
     let galtonColumns = [
       createRect(offsetX + width * pegSpacing/ 2 - colSize / 2, curY + pegSpacing, colSize, 4)
@@ -314,10 +314,10 @@ document.addEventListener('DOMContentLoaded', () => {
       )
     )
   }*/
-  let crimeBlack = createGaltonBoard(100, 50, 8, 7, 0.5, 30)
-  let crimeWhite = createGaltonBoard(300, 50, 8, 7, 0.5, -30)
-  let housingANoCrime = createGaltonBoard(100, 400, 8, 7, 0.5, -30)
-  let housingACrime = createGaltonBoard(300, 400, 8, 7, 0.5, 30)
+  let crimeBlack = createGaltonBoard(100, 50, 8, 7, 0.5, 20)
+  let crimeWhite = createGaltonBoard(300, 50, 8, 7, 0.5, -20)
+  let housingANoCrime = createGaltonBoard(100, 400, 8, 7, 0.5, -20)
+  let housingACrime = createGaltonBoard(300, 400, 8, 7, 0.5, 20)
   let path1 = createPathExitVertical(crimeBlack.leftExit, housingANoCrime.entry, 30)
   let path2 = createPathExitVertical(crimeBlack.rightExit, {x: housingACrime.entry.x - 30, y: housingACrime.entry.y}, 20);
   let housingANeighborhood = createNeighborhood(100, 750)
