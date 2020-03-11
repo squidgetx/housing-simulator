@@ -1,7 +1,7 @@
 const pegRadius = 3;
 const pathSize = 12;
 const pegSpace = 9;
-const solidFill = '#333339'
+const solidFill = '#545454'
 const marbleRadius = 3.5;
 const pegSpacing = pegRadius * 2 + pegSpace;
 function scaleCanvas(canvas, context, width, height) {
